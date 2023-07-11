@@ -13,24 +13,26 @@ def generare():
     # print(cuvant)
     return cuvant
 
-cuvant=generare()
-vieti=5
-litere_folosite=[] 
-cuvinte_gasite=[]
-
 def afisare():
+    cuvant_gasit=""
     for c in cuvant:
         if c in litere_folosite or c==cuvant[0] or c==cuvant[len(cuvant)-1]:
-            print(c,end="")
+            cuvant_gasit+=(c)
         else:
-            print("_",end="")
-    print("\nvieti:",str(vieti))
+            cuvant_gasit+=("_")
+    print(cuvant_gasit)
+    print("vieti:",str(vieti))
     print("ai folosit urmatoarele litere ", litere_folosite)
+    return cuvant_gasit
 
+cuvinte_gasite=[]
 
-afisare()
+while True:
+    cuvant=generare()
+    vieti=5
+    litere_folosite=[] 
+    afisare()
 
-while joc==True:
     while vieti>0:
         ghici=input("\nIntrodu o litera sau cuvantul: ")
         if ghici==cuvant:
@@ -43,28 +45,23 @@ while joc==True:
             print("Litera ti a fost data la inceput!")
         elif ghici in cuvant:
             litere_folosite.append(ghici)
-            afisare()
+            cuvant_gasit=afisare()
+            if "_" not in cuvant_gasit:
+                print("\n Felicitari, ai ghicit cuvantul!")
+                break
         else:
             vieti-=1
             litere_folosite.append(ghici)
             afisare()
-
     if vieti==0:
         print("ai pierdut")
     else:
         cuvinte_gasite.append(cuvant)
 
-
     print("\ncuvinte ghicite pana acum: ",cuvinte_gasite)
     raspuns=input("vrei sa continui?(da/nu): ")
-    if raspuns=="da":
-        joc=True
-        vieti=5
-        cuvant=generare()
-        litere_folosite=[] 
-        afisare()
-    else: 
-        joc=False
+    if raspuns=="nu":
+        break
 
 
 
